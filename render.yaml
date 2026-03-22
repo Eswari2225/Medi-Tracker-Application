@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: meditracker-backend
+    runtime: python
+    pythonVersion: 3.11
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && gunicorn app:create_app()"
+    envVars:
+      - key: SECRET_KEY
+        scope: run
+        value: "your-secret-key-here"
+      - key: FLASK_ENV
+        scope: run
+        value: "production"
+      - key: FLASK_DEBUG
+        scope: run
+        value: "False"
+
+  - type: web
+    name: meditracker-frontend
+    runtime: node
+    nodeVersion: 18
+    buildCommand: "cd frontend && npm install && npm run build"
+    startCommand: "cd frontend && npm install -g serve && serve -s build -l 3000"
+    staticPublishPath: frontend/build
