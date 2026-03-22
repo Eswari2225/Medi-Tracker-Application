@@ -1,3 +1,12 @@
+import sys
+import os
+
+# Ensure pkg_resources is available
+try:
+    import pkg_resources
+except ImportError:
+    import setuptools  # This will make pkg_resources available
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime, time, timedelta
 from models import db, Medication, Patient, MedicationConfirmation
